@@ -5,17 +5,24 @@ get_symbols <- function() {
 }
 
 score <- function(symbols) {
-  if (symbols[1] == symbols[2] && symbols[2] == symbols[3]) {
-    payouts <- c("DD" = 100, "7" = 80, "BBB" = 40, "BB" = 25, "B" = 10, "C" = 10, "0" = 0)
-    prize <- unname(payouts[symbols[1]])
-  } else if (all(symbols %in% c("B", "BB", "BBB"))) {
-    prize <- 5
-  } else {
-    cherries <- sum(symbols == "C")
-    payouts <- c(0, 2, 5)
-    prize <- payouts[cherries + 1]
-  }
   diamonds <- sum(symbols == "DD")
+  cherries <- sum(symbols == "C")
+  slots <- symbols[symbols != "DD"]
+  same <- length(unique(slots)) == 1
+  bars <- slots %in% c("B", "BB", "BBB")
+  
+  if (diamonds == 3) {
+    prize <- 100
+  } else if (same) {
+    payouts <- c("7" = 80, "BBB" = 40, "BB" = 25, "B" = 10, "C" = 10, "0" = 0)
+    prize <- unname(payouts[slots[1]])
+  } else if (all(bars)) {
+    prize <- 5
+  } else if (cherries > 0) {
+    prize <- c(0, 2, 5)[cherries + diamonds + 1]
+  } else {
+    prize <- 0
+  }
   prize * 2 ^ diamonds
 }
 
