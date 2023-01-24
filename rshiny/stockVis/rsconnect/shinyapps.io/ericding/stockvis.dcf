@@ -1,0 +1,11 @@
+name: stockvis
+title:
+username:
+account: ericding
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 8116245
+bundleId: 6769561
+url: https://ericding.shinyapps.io/stockvis/
+when: 1674584591.89337
+lastSyncTime: 1674584591.89338
